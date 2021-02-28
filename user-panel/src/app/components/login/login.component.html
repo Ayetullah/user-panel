@@ -1,17 +1,13 @@
 <div class="center">
     <mat-card class="login">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div mat-card-title>
                     <span>KG Store</span>
-                    <mat-form-field class="language-select">
-                        <mat-select [(ngModel)]="selectedLan" >
-                            <mat-option>test</mat-option>
-                            <mat-option *ngFor="let lan of languages" [value]="lan.id">
-                                <img class="h-w-25" [src]="lan.img">
-                            </mat-option>
-                          </mat-select>
-                      </mat-form-field>
+                    <div class="language-select">
+                        <mat-icon [matMenuTriggerFor]="lan" style="cursor: pointer;">language</mat-icon>
+                        <span style="font-size: x-small;">{{selectedLan}}</span>
+                      </div>
                 </div>
                 <div mat-card-header>Kullanıcı Girişi</div>
                 <div mat-card-content>
@@ -31,7 +27,7 @@
                 </div>
                 <div mat-card-actions>
                     <div *ngIf="!isClickForgotPassword">
-                        <button mat-raised-button color="primary">Giriş</button>
+                        <button mat-raised-button color="primary" (click)="login()">Giriş</button>
                         <button mat-flat-button (click)="changeForgotPasswordStatus()" style="margin-left: 10px;">Parolamı Unuttum</button>
                     </div>
                     <div *ngIf="isClickForgotPassword">
@@ -40,7 +36,7 @@
                     </div>
                 </div>
               </div>
-              <div class="col-md-4" style="background-color: #213c84;">
+              <div class="col-md-5" style="background-color: #213c84;">
                 <img src="assets/img/kgNode.png" class="center" style="width: 100%;"/>
               </div>
         </div>
@@ -48,11 +44,8 @@
 </div>
 
 <mat-menu #lan="matMenu">
-    <button mat-menu-item>
-        <img class="h-w-25" src="assets/img/tr.svg">
+    <button mat-menu-item *ngFor="let item of languages" (click)="changeLanguage(item)">
+        <img class="h-w-25" [src]="item.img">
     </button>
     <mat-divider></mat-divider>
-    <button mat-menu-item>
-        <img class="h-w-25" src="assets/img/en.svg">
-    </button>
 </mat-menu>

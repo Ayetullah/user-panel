@@ -1,0 +1,50 @@
+<mat-sidenav-container class="sidenav-container" autosize="true">
+  <mat-sidenav class="sidenav" mode="side" opened [ngStyle]="{'width': !isSidebarNarrow ? '200px' : '80px'}">
+    <div class="logo">
+      <img class="kgLogo" src="assets/img/kgLogo.png"/>
+      <img class="kgYatay" *ngIf="!isSidebarNarrow" src="assets/img/kgYatay.png"/>
+    </div>
+    
+      <mat-nav-list style="margin-top: -8px;">
+        <a mat-list-item [routerLink]="'/user'" style="padding-left: 10px;">
+          <mat-icon style="color: white;">person_outline</mat-icon>
+          <span class="matNavList" *ngIf="!isSidebarNarrow">Kullanıcılar</span>
+        </a>
+        <a mat-list-item [routerLink]="'/application'" style="padding-left: 10px;">
+          <mat-icon style="color: white;">apps</mat-icon>
+          <span class="matNavList" *ngIf="!isSidebarNarrow">Uygulamalar</span>
+        </a>
+      </mat-nav-list>
+    
+    <div class="slider-trigger" (click)="setSidebarWidth()" [ngStyle]="{'width': !isSidebarNarrow ? '200px' : '80px'}">
+      <mat-icon style="color: white; margin-top: 15px;" *ngIf="!isSidebarNarrow">keyboard_arrow_left</mat-icon>
+      <mat-icon style="color: white; margin-top: 15px;" *ngIf="isSidebarNarrow">keyboard_arrow_right</mat-icon>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color: whitesmoke;">
+      <span style="font-size: small; font-weight: lighter;">Anasayfa / Uygulamalar</span>
+      <span class="example-spacer"></span>
+      
+      <mat-icon [matMenuTriggerFor]="lan" style="cursor: pointer;">language</mat-icon>
+      <span style="font-size: x-small;">{{selectedLan}}</span>
+      <button mat-button [matMenuTriggerFor]="exitMenu">
+        <span style="font-size: small; font-weight: lighter;">Hoşgeldin, User</span>
+        <mat-icon>person</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #exitMenu="matMenu" class="exitMenu" yPosition="below">
+  <button mat-menu-item [routerLink]="'/login'">Çıkış</button>
+</mat-menu>
+
+<mat-menu #lan="matMenu" class="lanMenu">
+  <button mat-menu-item *ngFor="let item of languages" (click)="changeLanguage(item)">
+      <img class="h-w-25" [src]="item.img">
+  </button>
+  <mat-divider></mat-divider>
+</mat-menu>
